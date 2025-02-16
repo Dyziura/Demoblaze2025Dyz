@@ -1,3 +1,5 @@
+import unittest
+
 import test_data.test_data
 from Tests.base_test import BaseTest
 from time import sleep
@@ -12,6 +14,7 @@ class LoginTest(BaseTest):
         self.login_page = self.home_page.click_log_in()
         #sleep(4)
 
+    #@unittest.skip #takim dekoratorem możemy pominąć dany test
     def testEmptyLogin(self):
         # (nie wpisujemy nic)
         # 1. kliknij LogIn

@@ -10,12 +10,12 @@ class DataReader:
         """
         rows = []
         # "r" read
-        data_file = open(filename, "r")
-        reader = csv.reader(data_file)
-        #Pomiń pierwszy wiersz (nagłówki w csv)
-        next(reader, None)
-        for row in reader:
-            rows.append(row)
+        with open(filename, "r") as data_file:
+            reader = csv.reader(data_file)
+            #Pomiń pierwszy wiersz (nagłówki w csv)
+            next(reader, None)
+            for row in reader:
+                rows.append(row)
         return rows
 
 
