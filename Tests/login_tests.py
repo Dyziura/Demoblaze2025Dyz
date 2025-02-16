@@ -1,5 +1,4 @@
 import unittest
-
 import test_data.test_data
 from Tests.base_test import BaseTest
 from time import sleep
