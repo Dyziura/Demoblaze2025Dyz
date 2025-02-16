@@ -3,7 +3,6 @@ import test_data.test_data
 from Tests.base_test import BaseTest
 from time import sleep
 from ddt import data, unpack, ddt
-import os
 
 # dekorujemy klasę ddt
 @ddt
@@ -24,7 +23,6 @@ class LoginTest(BaseTest):
         self.login_page.confirm_alert()
         sleep(2)
 
-    #"../test_data/valid_login_credentials.csv"
     @data(*test_data.test_data.DataReader.get_csv_data("valid_login_credentials.csv"))
     @unpack
     def testValidLogin(self, usernamecsv, passwordcsv):
