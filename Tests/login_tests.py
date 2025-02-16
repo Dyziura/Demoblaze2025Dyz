@@ -1,6 +1,10 @@
+import test_data.test_data
 from Tests.base_test import BaseTest
 from time import sleep
+from ddt import data, unpack, ddt
 
+# dekorujemy klasę ddt
+@ddt
 class LoginTest(BaseTest):
     def setUp(self):
         super().setUp() #wywołanie z klasy nadrzędnej
@@ -17,17 +21,18 @@ class LoginTest(BaseTest):
         self.login_page.confirm_alert()
         sleep(2)
 
-    def testValidLogin(self):
-        username = "tester_alk"
+    @data(*test_data.test_data.DataReader.get_csv_data("../test_data/valid_login_credentials.csv"))
+    @unpack
+    def testValidLogin(self, usernamecsv, passwordcsv):
         # 1. Wpisz login
-        self.login_page.enter_username("tester_alk")
+        self.login_page.enter_username(usernamecsv)
         # 2. Wpisz hasło
-        self.login_page.enter_password("haslo")
+        self.login_page.enter_password(passwordcsv)
         # 3. Kliknij Log In
         self.login_page.click_log_in()
         # 4. zmiana Log in na Log out // czy jest "Welcome tester_alk"
         welcome_text_act = self.home_page.get_welcome_username_text()
-        self.assertEqual(f"Welcome {username}", welcome_text_act)
+        self.assertEqual(f"Welcome {usernamecsv}", welcome_text_act)
         # 5. (Sprawdź czy można kliknąć LogOut)
         self.home_page.click_log_out()
         self.assertEqual("Log in", self.home_page.get_log_in_text())
